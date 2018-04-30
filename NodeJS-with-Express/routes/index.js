@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 //Controller
-const task1 = require('./controllers.js/task1.js')
-const task2 = require('./controllers.js/task2');
-const task3 = require('./controllers.js/task3');
-const taskRXJS = require('./controllers.js/rxjs')
+const task1 = require('./controllers/task1.js')
+const task2 = require('./controllers/task2');
+const task3 = require('./controllers/task3');
+const taskRXJS = require('./controllers/bonus')
 
 
 
