@@ -10,19 +10,18 @@ exports.getTite = function (req, res, next) {
     
     for (var add in addressParam) {
         console.log('Address ' , addressParam[add]);
-        let url = addressParam[add]
-
-        request(url, function(error, response, html){
+        let urlNew = urlHttpChecker(addressParam[add])
+        
+        request(urlNew, function(error, response, html){
             if(!error){
                 let $ = cheerio.load(html)
                 let title = $("title").text()
                 console.log('Title is ', title)
-                titleArray.push({url: url,title: title})
+                titleArray.push({url: addressParam[add],title: title})
             }else{
                 console.log(error)
-                titleArray.push({url: url,title: error})
+                titleArray.push({url: addressParam[add],title: error})
             }
-
             counter++;
             if(counter === req.query.address.length){
                 res.render('index', {urls: titleArray})

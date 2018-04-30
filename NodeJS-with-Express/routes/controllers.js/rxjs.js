@@ -1,17 +1,12 @@
 const Rx = require('rx');
 const cheerio = require('cheerio')
-var rp = require('request-promise');
+const rp = require('request-promise');
 const helper = require('./helper')
 
 
-
-
-
-
-
-function getCheerio(url) {
+function getCheerio(modifiedURL, url) {
     var promise = rp( {
-            uri: url,
+            uri: modifiedURL,
             transform: function (body) {
                 return cheerio.load(body);
             }
@@ -31,10 +26,9 @@ exports.getTite = (req, res, next) => {
     let addressParam = helper.urlHelper(req.query.address)
     for (var add in addressParam) {
         console.log('Address ' , addressParam[add]);
-        let url = addressParam[add]
-        observerArray.push(getCheerio(url));
+        let url = helper.urlHttpChecker(addressParam[add])
+        observerArray.push(getCheerio(url, addressParam[add]));
     }
-
     const example = Rx.Observable.concat(...observerArray);
     const subscribe = example.subscribe(
         (val) => {

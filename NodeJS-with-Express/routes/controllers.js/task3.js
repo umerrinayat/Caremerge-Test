@@ -4,9 +4,9 @@ const helper = require('./helper')
 
 
 
-const getTitlePromise = (url) => {
+const getTitlePromise = (url, urlNew) => {
     return new Promise((resolve, reject) => {
-        request(url, (error, response, html) => {
+        request(urlNew, (error, response, html) => {
             if(!error){
                 let $ = cheerio.load(html)
                 let title = $("title").text()
@@ -27,7 +27,8 @@ exports.getTite = (req, res, next) => {
     for (var add in addressParam) {
         console.log('Address ' , addressParam[add]);
         let url = addressParam[add]
-        promiseArray.push(getTitlePromise(url));
+        let urlNew = helper.urlHttpChecker(url)
+        promiseArray.push(getTitlePromise(url, urlNew));
     }
 
     Promise.all(promiseArray).then((data) => {

@@ -12,7 +12,7 @@ const taskRXJS = require('./controllers.js/rxjs')
 const taskNumber = process.argv[2];
 
 console.log('------------------------------------');
-console.log('This is task ', taskNumber);
+console.log('This is ', taskNumber);
 console.log('------------------------------------');
 
 

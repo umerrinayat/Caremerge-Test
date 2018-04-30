@@ -8,7 +8,8 @@ exports.getTite = (req, res, next) => {
     let titleArray = [];
     let addressParam = helper.urlHelper(req.query.address)
     async.each(addressParam, (url, callback) => {
-        request(url, (error, response, html) => {
+        let urlNew = helper.urlHttpChecker(url)
+        request(urlNew, (error, response, html) => {
             if(!error){
                 let $ = cheerio.load(html)
                 let title = $("title").text()
