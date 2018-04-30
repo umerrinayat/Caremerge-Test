@@ -22,18 +22,18 @@ var server = http.createServer(function (req, res) {
             
             for (var add in addressParam) {
                 console.log('Address ' , addressParam[add])
-                let url = addressParam[add]
-                request(url, function(error, response, html){
+                let urlNew = helper.urlHttpChecker(addressParam[add])
+                request(urlNew, function(error, response, html){
+                    console.log('New URL ', url)
                     if(!error){
                         let $ = cheerio.load(html)
                         let title = $("title").text()
                         console.log('Title is ', title)
-                        titleArray.push({url: url,title: title})
+                        titleArray.push({url: addressParam[add],title: title})
                     }else{
                         console.log(error)
-                        titleArray.push({url: url,title: error})
+                        titleArray.push({url: addressParam[add],title: error})
                     }
-
                     counter++;
                     if(counter === addressParam.length){
                         let html = helper.createListItems(titleArray)
@@ -45,9 +45,15 @@ var server = http.createServer(function (req, res) {
             }
         }
     }else {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end(`<html><body><h1>Error 404</h1> <p>${req.url} - Invalid URL</p></body></html>`);
-        return;
+        if(route !== '/I/want/title'){
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(`<html><body><h1>404</h1> <p>Ooops!  ${req.url} - Route not found</p></body></html>`);
+            return;
+        }else{
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(`<html><body><h1>404</h1> <p>Ooops!  Only GET request is supported</p></body></html>`);
+            return;
+        }
     }
 });
 

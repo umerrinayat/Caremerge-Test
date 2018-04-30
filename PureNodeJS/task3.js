@@ -20,7 +20,7 @@ var server = http.createServer(function (req, res) {
             
             for (var add in addressParam) {
                 console.log('Address ' , addressParam[add]);
-                let url = addressParam[add]
+                let url = helper.urlHttpChecker(addressParam[add])
                 promiseArray.push( helper.getTitlePromise(url));
             }
 
@@ -34,9 +34,15 @@ var server = http.createServer(function (req, res) {
             })
         }
     }else {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end(`<html><body><h1>Error 404</h1> <p>${req.url} - Invalid URL</p></body></html>`);
-        return;
+        if(route !== '/I/want/title'){
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(`<html><body><h1>404</h1> <p>Ooops!  ${req.url} - Route not found</p></body></html>`);
+            return;
+        }else{
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(`<html><body><h1>404</h1> <p>Ooops!  Only GET request is supported</p></body></html>`);
+            return;
+        }
     }
 });
 

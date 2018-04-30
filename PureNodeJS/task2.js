@@ -20,7 +20,8 @@ var server = http.createServer(function (req, res) {
         }else{
             let titleArray = [];
             async.each(addressParam, (url, callback) => {
-                request(url, function(error, response, html){
+                let urlNew = helper.urlHttpChecker(url)
+                request(urlNew, function(error, response, html){
                     if(!error){
                         let $ = cheerio.load(html)
                         let title = $("title").text()
@@ -51,9 +52,15 @@ var server = http.createServer(function (req, res) {
             });
         }
     }else {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end(`<html><body><h1>Error 404</h1> <p>${req.url} - Invalid URL</p></body></html>`);
-        return;
+        if(route !== '/I/want/title'){
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(`<html><body><h1>404</h1> <p>Ooops!  ${req.url} - Route not found</p></body></html>`);
+            return;
+        }else{
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end(`<html><body><h1>404</h1> <p>Ooops!  Only GET request is supported</p></body></html>`);
+            return;
+        }
     }
 });
 
