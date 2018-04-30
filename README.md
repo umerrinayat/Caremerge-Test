@@ -20,9 +20,9 @@
 
 6. Arguments are task1, task2, task3, bonus  (`npm start task1`)
     - For task 1  `npm start task1`
-    - For task 1  `npm start task2`
-    - For task 1  `npm start task3`
-    - For task 1  `npm start bonus`
+    - For task 2  `npm start task2`
+    - For task 3  `npm start task3`
+    - For Bonus  `npm start bonus`
     
 
 ![alt text](https://github.com/umerrinayat/Caremerge-Test/blob/master/Screenshot%20from%202018-04-30%2013-15-46.png)
