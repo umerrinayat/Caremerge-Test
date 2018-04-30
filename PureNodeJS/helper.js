@@ -15,7 +15,7 @@ exports.urlParamCounter = (addressParam) => {
 exports.urlHttpChecker = (url) => {
     let prefixHTTP = 'http://';
     let prefixHTTPS = 'https://';
-    if (url.substr(0, prefixHTTP.length) !== prefixHTTP || url.substr(0, prefixHTTPS.length) !== prefixHTTPS){
+    if (url.substr(0, prefixHTTP.length) !== prefixHTTP && url.substr(0, prefixHTTPS.length) !== prefixHTTPS){
         console.log('Http is missing ', url)
         url = prefixHTTP + url;
         console.log('Http was missing ', url)

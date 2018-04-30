@@ -26,8 +26,7 @@ var server = http.createServer(function (req, res) {
 
             Promise.all(promiseArray).then((data) => {
                 console.log('This is data ', data);
-                titleArray.push(data);
-                let html = helper.createListItems(titleArray)
+                let html = helper.createListItems(data)
                 res.writeHead(200, {'Content-Type': 'text/html','Content-Length':html.length});
                 res.write(html);
                 res.end();
